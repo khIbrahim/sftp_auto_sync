@@ -1,0 +1,34 @@
+plugins_dir: "./plugins"
+
+github_timeout: 30
+sftp_timeout: 60
+max_retries: 3
+
+authors:
+  - "fenomeno"
+  - "nepheliashop"
+  - "nephelia"
+  - "nephelia-shop"
+  - "nephelia_shop"
+  - "bibou"
+  - "xbiboul"
+  - "elgato"
+  - "xbibou"
+
+#target_all_plugins: true todo
+
+target_plugins:
+  - Moderation
+  - Nick
+  - Eggtrap
+
+modes:
+  - "valid"
+  - "owned"
+  - "github"
+  - "update"
+
+#  - "github" # vérifie si le plugin est lié à un repository de votre github
+#  - "valid" # vérifie si la structure est valide
+#  - "owned" # vérifie si le plugin vous appartient
+#  - "update" # update le plugin à partir du repository
