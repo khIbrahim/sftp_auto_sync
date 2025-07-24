@@ -3,11 +3,11 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Optional
 
 import yaml
+from dotenv import load_dotenv
 from yaml import YAMLError
 
 from .exceptions import ConfigurationError
 from .logger import warn
-
 
 @dataclass
 class Config:
@@ -51,6 +51,20 @@ class Config:
             "github": "github" in self.modes,
             "update": "update" in self.modes,
         }
+
+def validate_environment() -> None:
+    load_dotenv()
+    required_vars = ["SFTP_HOST", "SFTP_PORT", "SFTP_USER", "SFTP_PASS", "GITHUB", "GITHUB_TOKEN"]
+    missing_vars = []
+    for var in required_vars:
+        if not os.getenv(var):
+            missing_vars.append(var)
+
+    if missing_vars:
+        raise ConfigurationError(f"Variables d'environnement manquantes: {missing_vars}")
+
+    if not os.getenv("GITHUB_TOKEN") and not os.getenv("GITHUB"):
+        raise ConfigurationError("Les variables d'environnement GITHUB_TOKEN & GITHUB doivent être définie pour accéder à l'API GitHub.")
 
 def load_config(config_path: Optional[str] = None) -> Config:
     if config_path is None:
